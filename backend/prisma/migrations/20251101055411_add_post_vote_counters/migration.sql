@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "downVoteCount" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "upVoteCount" INTEGER NOT NULL DEFAULT 0;

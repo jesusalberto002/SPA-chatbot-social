@@ -1,0 +1,408 @@
+/* Component-specific styles */
+
+/* Button Components */
+.interactive-button {
+  @apply relative overflow-hidden transition-all duration-300 ease-out;
+  @apply hover:scale-105 active:scale-95;
+}
+
+.interactive-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s;
+}
+
+.interactive-button:hover::before {
+  left: 100%;
+}
+
+/* Value Card Components */
+.value-card {
+  @apply transition-all duration-500 ease-out;
+  @apply hover:scale-105 hover:-translate-y-2;
+  @apply hover:shadow-2xl hover:shadow-black/20;
+}
+
+.value-card .card-image {
+  @apply transition-transform duration-300;
+}
+
+.value-card:hover .card-image {
+  @apply scale-110;
+}
+
+.value-card .card-title {
+  @apply transition-all duration-300;
+}
+
+.value-card:hover .card-title {
+  @apply scale-105;
+}
+
+/* Product Card Components */
+.product-card {
+  @apply transition-all duration-500 ease-out;
+  @apply hover:scale-105 hover:-translate-y-4;
+  @apply hover:shadow-2xl hover:shadow-black/30;
+}
+
+.product-card .product-image-container {
+  @apply relative overflow-hidden;
+}
+
+.product-card .product-image-overlay {
+  @apply absolute inset-0 bg-black/20 transition-opacity duration-300;
+}
+
+.product-card:hover .product-image-overlay {
+  @apply opacity-0;
+}
+
+.product-card .product-image {
+  @apply transition-all duration-500;
+}
+
+.product-card:hover .product-image {
+  @apply scale-110 opacity-100;
+}
+
+.product-card .product-title {
+  @apply transition-all duration-300;
+}
+
+.product-card:hover .product-title {
+  @apply scale-105;
+}
+
+/* Navigation Components */
+.navigation {
+  @apply transition-all duration-300;
+}
+
+.navigation.scrolled {
+  @apply bg-black/90 backdrop-blur-md border-b border-gray-800 shadow-lg;
+}
+
+.navigation .nav-logo {
+  @apply transition-all duration-300;
+  @apply hover:scale-110 hover:shadow-lg hover:shadow-white/25;
+}
+
+.navigation .nav-item {
+  @apply relative transition-all duration-300 py-2 px-4 rounded-full;
+  @apply hover:bg-white/10 hover:scale-105;
+}
+
+.navigation .nav-item.active {
+  @apply text-purple-400 bg-white/10;
+}
+
+.navigation .nav-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(45deg, #a855f7, #06b6d4);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navigation .nav-item.active::after {
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  background: #a855f7;
+}
+
+/* Floating Elements */
+.floating-elements {
+  @apply fixed inset-0 pointer-events-none overflow-hidden;
+}
+
+.floating-element {
+  @apply absolute rounded-full blur-3xl;
+}
+
+.floating-element-1 {
+  @apply w-64 h-64 bg-purple-500/10;
+}
+
+.floating-element-2 {
+  @apply w-96 h-96 bg-blue-500/10;
+}
+
+.floating-element-3 {
+  @apply w-48 h-48 bg-teal-500/10;
+}
+
+/* Animated Section Components */
+.animated-section {
+  @apply transition-all duration-1000 ease-out;
+}
+
+.animated-section.fade-in {
+  @apply opacity-0;
+}
+
+.animated-section.fade-in.visible {
+  @apply opacity-100;
+}
+
+.animated-section.slide-up {
+  @apply opacity-0 translate-y-20;
+}
+
+.animated-section.slide-up.visible {
+  @apply opacity-100 translate-y-0;
+}
+
+.animated-section.slide-left {
+  @apply opacity-0 translate-x-20;
+}
+
+.animated-section.slide-left.visible {
+  @apply opacity-100 translate-x-0;
+}
+
+.animated-section.slide-right {
+  @apply opacity-0 -translate-x-20;
+}
+
+.animated-section.slide-right.visible {
+  @apply opacity-100 translate-x-0;
+}
+
+.animated-section.scale-in {
+  @apply opacity-0 scale-95;
+}
+
+.animated-section.scale-in.visible {
+  @apply opacity-100 scale-100;
+}
+
+/* Hero Section Specific */
+.hero-section {
+  @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+}
+
+.hero-background {
+  @apply absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black;
+}
+
+.hero-watermark {
+  @apply absolute inset-0 opacity-10;
+}
+
+.hero-watermark-text {
+  @apply text-[40vw] font-bold text-gray-800 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 select-none;
+  @apply animate-float;
+}
+
+.hero-content {
+  @apply relative z-10 text-center px-4 max-w-6xl mx-auto;
+}
+
+.hero-badge {
+  @apply inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8;
+  @apply animate-pulse-glow;
+}
+
+.hero-title {
+  @apply text-4xl md:text-6xl lg:text-8xl font-bold mb-8 leading-tight;
+  @apply text-gradient;
+}
+
+/* Services Section Specific */
+.services-section {
+  @apply py-20 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900;
+  @apply animate-gradient;
+}
+
+.services-grid {
+  @apply grid grid-cols-2 gap-6;
+}
+
+.service-card {
+  @apply rounded-3xl p-6 flex items-center justify-center;
+  @apply hover-lift hover-glow;
+}
+
+/* Values Section Specific */
+.values-section {
+  @apply py-20 bg-gradient-to-br from-teal-900 via-teal-800 to-green-900;
+}
+
+.values-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+/* Contact Section Specific */
+.contact-section {
+  @apply py-20;
+}
+
+.contact-card {
+  @apply grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden;
+  @apply hover-lift;
+}
+
+.contact-left {
+  @apply bg-gradient-to-br from-cyan-400 to-blue-600 p-12 flex flex-col justify-center relative;
+  @apply animate-gradient;
+}
+
+.contact-right {
+  @apply bg-gray-900 p-12 flex flex-col justify-center;
+}
+
+.social-icon {
+  @apply w-12 h-12 bg-white rounded-full flex items-center justify-center;
+  @apply hover:bg-gray-200 transition-all duration-300 cursor-pointer;
+  @apply hover:scale-110 hover-glow;
+}
+
+/* Footer Specific */
+.footer {
+  @apply bg-black border-t border-gray-800 py-8;
+}
+
+.footer-logo {
+  @apply flex items-center space-x-2 mb-4 md:mb-0;
+  @apply hover:scale-105 transition-transform duration-300;
+}
+
+.footer-logo-icon {
+  @apply w-8 h-8 bg-white rounded-full flex items-center justify-center;
+  @apply hover-glow;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .hero-title {
+    @apply text-3xl;
+  }
+
+  .services-grid {
+    @apply grid-cols-1;
+  }
+
+  .values-grid {
+    @apply grid-cols-1;
+  }
+
+  .contact-card {
+    @apply grid-cols-1;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-watermark-text {
+    @apply text-[60vw];
+  }
+
+  .services-section,
+  .values-section,
+  .contact-section {
+    @apply py-16;
+  }
+}
+
+@media (max-width: 1024px) {
+  .values-grid {
+    @apply grid-cols-2;
+  }
+}
+
+/* Loading States */
+.loading-card {
+  @apply animate-pulse bg-gray-800 rounded-3xl;
+}
+
+.loading-text {
+  @apply animate-pulse bg-gray-700 rounded h-4;
+}
+
+.loading-title {
+  @apply animate-pulse bg-gray-600 rounded h-8;
+}
+
+/* Error States */
+.error-card {
+  @apply border-2 border-red-500 bg-red-500/10;
+  @apply animate-pulse;
+}
+
+.error-text {
+  @apply text-red-400;
+}
+
+/* Success States */
+.success-card {
+  @apply border-2 border-green-500 bg-green-500/10;
+  @apply animate-bounce;
+}
+
+.success-text {
+  @apply text-green-400;
+}
+
+/* Accessibility Improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.focus-visible {
+  @apply outline-none ring-2 ring-purple-500 ring-offset-2 ring-offset-black;
+}
+
+/* High Performance Animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Custom Utilities */
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.backdrop-blur-strong {
+  backdrop-filter: blur(20px);
+}
+
+.gradient-border {
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, #a855f7, #06b6d4) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}

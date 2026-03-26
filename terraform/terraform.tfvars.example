@@ -1,0 +1,95 @@
+# Copy to terraform.tfvars and adjust. terraform.tfvars is gitignored.
+# This file shows a full example for long-term IaC:
+# - non-sensitive values in ecs_environment
+# - sensitive values in app_secrets_values (Terraform creates/updates Secrets Manager)
+# - optional external secret wiring in ecs_secret_env
+#
+# IMPORTANT:
+# app_secrets_values are stored in Terraform state. Use encrypted/remote state (S3 + KMS + lock)
+# before production/team usage.
+
+# -----------------------------
+# Core environment and bastion
+# -----------------------------
+bastion_key_name = "your-key-pair-name"
+bastion_ssh_cidr = "203.0.113.10/32"
+
+# -----------------------------
+# ECS deployment knobs
+# -----------------------------
+ecs_image_tag         = "latest"
+ecs_desired_count     = 1
+ecs_container_port    = 3000
+ecs_health_check_path = "/"
+ecs_task_cpu          = 512
+ecs_task_memory       = 1024
+ecs_log_retention_days = 14
+
+# -----------------------------
+# Plain (non-secret) env vars
+# -----------------------------
+ecs_environment = {
+  NODE_ENV  = "production"
+  PORT      = "3000"
+
+  DB_HOST   = "haivens-dev-postgres.xxxxx.ap-southeast-2.rds.amazonaws.com"
+  DB_PORT   = "5432"
+  DB_NAME   = "haivens"
+  DB_USER   = "haivens"
+
+  # Set to your frontend origin(s) later.
+  FRONTEND_URL = "https://app.example.com"
+}
+
+# ---------------------------------------
+# Terraform-managed Secrets Manager values
+# ---------------------------------------
+# Each key becomes:
+# 1) Secrets Manager secret name: <project>-<env>/<lower-key-with-dashes>
+# 2) ECS environment variable of the same key (automatic injection)
+app_secrets_values = {
+  DB_PASSWORD              = "replace-me"
+  JWT_SECRET               = "replace-me"
+  STRIPE_SECRET_KEY        = "replace-me"
+  STRIPE_WEBHOOK_SECRET    = "replace-me"
+  GEMINI_API_KEY           = "replace-me"
+  DEEPGRAM_API_KEY         = "replace-me"
+  GOOGLE_APPLICATION_CREDENTIALS_JSON = "{\"type\":\"service_account\",\"project_id\":\"...\"}"
+}
+
+# 7-30 keeps recoverable delete window; 0 force-deletes on destroy.
+app_secret_recovery_window_in_days = 7
+
+# ---------------------------------------
+# Frontend (S3 + CloudFront)
+# ---------------------------------------
+# Leave frontend_domain_names as [] to use the default CloudFront URL.
+# Set domain names + hosted zone to use custom domain aliases.
+frontend_domain_names = [
+  "haivens.com",
+  "www.haivens.com"
+]
+frontend_hosted_zone_id = null
+
+# PriceClass_100 is cheaper and enough for AU/NZ-focused traffic.
+frontend_price_class = "PriceClass_100"
+
+# ---------------------------------------
+# Backend API HTTPS (ALB + ACM + Route53)
+# ---------------------------------------
+# Set both values to enable HTTPS for the backend API endpoint.
+# Keep both null to use ALB HTTP endpoint only.
+api_domain_name    = "api.example.com"
+api_hosted_zone_id = null
+
+# ---------------------------------------
+# Optional: use externally-created secrets
+# ---------------------------------------
+# If you already have secrets in AWS, map env var => secret ARN here.
+# These override same-key entries from app_secrets_values.
+ecs_secret_env = {
+  # JWT_SECRET = "arn:aws:secretsmanager:ap-southeast-2:123456789012:secret:existing-jwt-abc"
+}
+
+# Optional extra read permissions for execution role
+ecs_secret_arns = []

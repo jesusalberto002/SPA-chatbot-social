@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.env
+.env.*
+.git
+.gitignore
+*.md
+prisma/migrations
+coverage
+.nyc_output
+Dockerfile
+.dockerignore

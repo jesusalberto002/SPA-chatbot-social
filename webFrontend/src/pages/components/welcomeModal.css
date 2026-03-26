@@ -1,0 +1,136 @@
+/* WelcomeModal.css */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--bg-primary);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.modal-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.modal-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.modal-text {
+  color: #555;
+  line-height: 1.6;
+}
+
+.modal-subtitle {
+  margin-top: 2rem;
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.modal-steps {
+  text-align: left;
+  margin-top: 1.5rem;
+}
+
+.modal-step {
+  margin-bottom: 1.25rem;
+}
+
+.modal-step p {
+  color: #666;
+  margin: 0.25rem 0 0 0;
+  font-size: 0.9rem;
+}
+
+.modal-footer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-dots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #8A2BE2; /* A nice purple color */
+}
+
+.navigation-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-cta-button, .modal-secondary-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.modal-cta-button {
+  background-color: #8A2BE2; /* Purple */
+  color: white;
+}
+
+.modal-cta-button:hover {
+  background-color: #7B1FA2;
+}
+
+.modal-secondary-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.modal-secondary-button:hover {
+  background-color: #e0e0e0;
+}

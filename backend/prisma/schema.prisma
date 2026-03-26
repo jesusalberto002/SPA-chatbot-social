@@ -1,0 +1,519 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define an Enum for Gender
+enum Gender {
+  MALE
+  FEMALE
+  NON_BINARY
+  PREFER_NOT_TO_SAY
+  OTHER
+}
+
+// Define an Enum for User Roles (for admin and potentially other roles)
+enum UserRole {
+  USER  // Regular user
+  ADMIN // Administrator
+  BOT   // System or bot user, e.g., for automated responses
+}
+
+// Define an Enum for Subscription Status
+enum SubscriptionTierType {
+  FREE
+  BRONZE
+  PLATINUM
+}
+
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+  NONE   // For the FREE tier
+}
+
+// Define an Enum for Subscription Status
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  CANCELLED
+  PENDING
+}
+
+// Enum for roles within a community
+enum CommunityRole {
+  MEMBER
+  MODERATOR
+  ADMIN
+}
+
+// Enum for post votes (likes/dislikes)
+enum VoteType {
+  UP
+  DOWN
+}
+
+enum UserSuspensionStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+  LIFTED // When a suspension is lifted before its end date
+}
+
+enum ReportType {
+  POST
+  COMMENT
+}
+
+enum ReportStatus {
+  PENDING
+  RESOLVED
+  DISMISSED
+}
+
+enum Tags {
+  HEALTH
+  FITNESS
+  NUTRITION
+  WELLNESS
+  MENTAL_HEALTH
+  LIFESTYLE
+  HEALTHY_HABITS
+  SELF_CARE
+  WORK_LIFE_BALANCE
+  MINDFULNESS
+  MEDITATION
+  BURNOUT_PREVENTION
+  SUBSTANCE_ABUSE
+  DIGITAL_DETOX
+  SLEEP_HEALTH
+  HEALTHY_EATING
+  WORK_STRESS
+  TRAUMA
+  SOCIAL_ANXIETY
+  DEPRESSION
+  ANXIETY
+  LOW_SELF_ESTEEM
+  LONELINESS
+  DRIEF_AND_LOSS
+  PANIC_ATTACKS
+  COUPLES_THERAPY
+  FAMILY_THERAPY
+  INDIVIDUAL_THERAPY
+  GROUP_THERAPY
+  PSYCHOTHERAPY
+  COGNITIVE_BEHAVIORAL_THERAPY
+  DIALOGUE_THERAPY
+  PSYCHOANALYSIS
+  HUMANISTIC_THERAPY
+  EXISTENTIAL_THERAPY
+  BEHAVIORAL_THERAPY
+  ART_THERAPY
+  MUSIC_THERAPY
+  PLAY_THERAPY
+  DRAMA_THERAPY
+  NARRATIVE_THERAPY
+  SOLUTION_FOCUSED_THERAPY
+  MINDFULNESS_BASED_STRESS_REDUCTION
+  ACCEPTANCE_AND_COMMITMENT_THERAPY
+  EMOTION_FOCUSED_THERAPY
+  INTERPERSONAL_THERAPY
+  SCHEMA_THERAPY
+  TRANSACTIONAL_ANALYSIS
+  SYSTEMIC_THERAPY
+  FAMILY_SYSTEMS_THERAPY
+  MULTICULTURAL_THERAPY
+  CULTURAL_THERAPY
+  CROSS_CULTURAL_THERAPY
+  TRANSCULTURAL_THERAPY
+  SPIRITUAL_THERAPY
+  TRANSPERSONAL_THERAPY
+  SOMATIC_THERAPY
+  BODY_CENTRED_THERAPY
+  RELATIONSHIPS
+  COMMUNICATION
+  CONFLICT_RESOLUTION
+  EMOTIONAL_INTELLIGENCE
+  POSITIVE_PSYCHOLOGY
+  OTHER
+}
+
+// Define the SubscriptionTier model
+model SubscriptionTier {
+  id          Int      @id @default(autoincrement())
+  name        SubscriptionTierType @unique// e.g., "Free", "Basic", "Premium"
+  description String?
+  price       Decimal? @db.Decimal(10, 2) // Example: 10 digits, 2 decimal places for price
+  features    Json?    // Store a list of features as JSON, e.g., ["feature1", "feature2"]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  subscriptions Subscription[]
+}
+
+// Define the User model
+model User {
+  id            Int      @id @default(autoincrement()) // Primary key, auto-increments
+  email         String   @unique // Email must be unique
+  firstName     String?
+  lastName      String?
+  age           Int?
+  gender        Gender?  // Uses the Gender enum defined above
+  interests     String? // Comma-separated interests, e.g., "fitness, nutrition"
+
+  therapist     Therapist[]
+
+  hasSeenWelcomeModal Boolean @default(false) // Flag to indicate if the user is new
+  hasSeenCommunityIntroModal Boolean @default(false) // Flag for community intro modal
+
+  profileImageUrl String? // URL to the user's profile image
+
+  password          String   // You'll store the hashed password here
+  updatedPasswordAt DateTime? // Timestamp for when the password was last updated
+
+  role          UserRole @default(USER) // Default role is USER
+
+  chatSessions  ChatSession[] // One-to-many relation with ChatSession
+
+  // Timestamps
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  lastActiveAt  DateTime?
+
+  recoveryEmail                          String? // Email used for account recovery
+  recoveryEmailVerificationCode          String?
+  recoveryEmailVerificationCodeExpiresAt DateTime?
+  isRecoveryEmailVerified                Boolean? @default(false)
+  
+  emailVerificationCode          String?
+  emailVerificationCodeExpiresAt DateTime?
+  isEmailVerified                Boolean? @default(false)
+
+  subscriptions      Subscription[]
+
+  // Communities this user has created
+  createdCommunities Community[] @relation("CreatedCommunities")
+
+  // Communities this user is a member of
+  communities        CommunityMember[]
+
+  // Posts and interactions
+  posts              Post[]
+  comments           Comment[]
+  PostVotes          PostVote[]
+  PostReactions      PostReaction[]
+  CommentVotes       CommentVote[]  
+  CommentReactions   CommentReaction[]
+  reports            Report[] // Reports made by this user
+
+  tagProfile         UserTagProfile?
+  userSummary        UserSummaryProfile?
+
+  suspension          UserCommunitySuspension[]   @relation("UserSuspensions")
+  suspensionsAsAdmin  UserCommunitySuspension[]   @relation("AdminSuspensions")
+}
+
+model UserSummaryProfile {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
+  summary   String?  @db.Text
+  updatedAt DateTime @updatedAt
+}  
+
+model UserTagProfile {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
+  tags      Json     @default("[]") // Store as a JSON array: [{ "tag": "FITNESS", "score": 10 }, ...]
+  updatedAt DateTime @updatedAt
+}
+
+model UserCommunitySuspension {
+  id        Int      @id @default(autoincrement())
+  //User being suspended or banned
+  userId    Int      // Foreign key to User
+  user      User     @relation("UserSuspensions", fields: [userId], references: [id])
+  //Admin performing the suspension or ban
+  adminId     Int
+  admin       User      @relation("AdminSuspensions", fields: [adminId], references: [id])
+
+  status    UserSuspensionStatus @default(ACTIVE)
+  reason    String?  // Reason for suspension or ban
+  startDate DateTime @default(now())
+  endDate   DateTime? // Nullable for indefinite suspensions/bans
+  updatedAt DateTime @updatedAt
+}
+
+model Therapist {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique // e.g., "Angus" or "Luna"
+  voiceId      String   // The Deepgram model string, e.g., "aura-2-hyperion-en"
+  url          String?  // Optional URL for more info about the therapist
+  provider     String?  @default("DEEPGRAM") // e.g., "Deepgram", "ElevenLabs", etc.
+  specialty    String?  // e.g., "Anxiety & Stress" or "General Support"
+  bio          String?  @db.Text
+  imageUrl     String?  // Image for the therapist's avatar
+  systemPrompt String?  @db.Text // Unique system instructions for this specific persona
+
+  messages     ChatMessage[] // Relation to chat messages where this therapist is involved
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  users        User[]   // Relation to users who have selected this therapist
+}
+
+// New Subscription model to link User and SubscriptionTier with status and dates
+model Subscription {
+  id        Int      @id @default(autoincrement())
+
+  userId    Int      // Foreign key to User
+  user      User     @relation(fields: [userId], references: [id])
+
+  tierId    Int      // Foreign key to SubscriptionTier
+  tier      SubscriptionTier @relation(fields: [tierId], references: [id])
+
+  status    SubscriptionStatus @default(ACTIVE) // Default to ACTIVE, or PENDING if payment is needed
+  startDate DateTime @default(now())
+  endDate   DateTime? // Nullable for ongoing subscriptions, or set for fixed-term ones
+
+  // You could add more fields like paymentIntentId, autoRenew, etc.
+  billingCycle BillingCycle @default(NONE) // Default billing cycle, can be overridden based on tier
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([tierId])
+}
+
+// Represents a single, unique conversation thread.
+model ChatSession {
+  id        Int      @id @default(autoincrement())
+  title     String?  // e.g., "Discussing Subscription Plans" (can be auto-generated)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int  // Foreign key to User
+  user   User @relation(fields: [userId], references: [id])
+
+  messages ChatMessage[] // Each session has many messages
+
+  @@index([userId])
+}
+
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.Text // Use Text type for potentially long messages
+  sender    UserRole // To distinguish between USER and ADMIN/BOT messages
+  createdAt DateTime @default(now())
+
+  therapistId Int?       // Optional foreign key to Therapist
+  therapist Therapist? @relation(fields: [therapistId], references: [id])
+
+  sessionId Int         // Foreign key to ChatSession
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+}
+
+// Stores information about each community forum.
+model Community {
+  id          String   @id @default(cuid())
+  name        String   @unique // e.g., "Health and Lifestyle"
+  description String?
+  imageUrl    String?  // Optional image for the community
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relation to the user who created the community
+  creatorId   Int // Changed to String to match User model if using CUIDs
+  creator     User     @relation("CreatedCommunities", fields: [creatorId], references: [id])
+
+  // Relations to other models
+  tags        Tags[] @default([]) // Array of tags for categorization
+  posts       Post[]
+  members     CommunityMember[]
+
+  @@index([name])
+}
+
+// This table creates a many-to-many relationship between Users and Communities.
+model CommunityMember {
+  userId      Int // Changed to String
+  communityId String
+
+  // Relations
+  user        User      @relation(fields: [userId], references: [id])
+  community   Community @relation(fields: [communityId], references: [id])
+
+  // Additional fields
+  role        CommunityRole @default(MEMBER)
+  joinedAt    DateTime      @default(now())
+
+  // Composite primary key to ensure a user can only join a community once
+  @@id([userId, communityId])
+}
+
+// Stores individual posts made within a community.
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  authorId  Int // Changed to String
+  author    User     @relation(fields: [authorId], references: [id])
+
+  communityId String
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  tags      Tags[] @default([]) // Array of tags for categorization
+  comments  Comment[]
+  votes     PostVote[]
+  reactions PostReaction[]
+
+  upVoteCount   Int      @default(0)
+  downVoteCount Int      @default(0)
+
+  reports    Report[]
+  reportCount Int      @default(0)
+
+  @@index([authorId])
+  @@index([communityId])
+}
+
+// Stores comments made on a post.
+model Comment {
+  id        String   @id @default(cuid())
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  authorId  Int // Changed to String
+  author    User     @relation(fields: [authorId], references: [id])
+
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  // For threaded comments (replies to other comments)
+  replyToId String?
+  replyTo   Comment? @relation("Replies", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Comment[] @relation("Replies")
+
+  votes     CommentVote[]
+  reactions CommentReaction[]
+
+  reports   Report[]
+  reportCount Int      @default(0)
+
+  @@index([authorId])
+  @@index([postId])
+}
+
+// Tracks upvotes and downvotes on posts.
+model PostVote {
+  userId Int
+  postId String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  // The type of vote
+  type   VoteType
+
+  // Composite primary key to ensure a user can only vote once per post
+  @@id([userId, postId])
+}
+
+model PostReaction {
+  userId    Int
+  postId    String
+  reaction  String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@id([userId, postId])
+}
+
+model CommentVote {
+  userId Int
+  commentId String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user    User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  // The type of vote
+  type    VoteType
+
+  // Composite primary key to ensure a user can only vote once per comment
+  @@id([userId, commentId])
+}
+
+model CommentReaction {
+  userId    Int
+  commentId String
+  reaction  String   // This will store the emoji character, e.g., "👍"
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  // A user can only use each specific reaction once per comment
+  @@id([userId, commentId])
+}
+
+model Report {
+  id        Int      @id @default(autoincrement())
+  type      ReportType
+  reason    String
+  status    ReportStatus @default(PENDING)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Who reported it?
+  reporterId Int
+  reporter   User @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  
+  // Which content was reported? (One of these will be set)
+  postId     String?
+  post       Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  
+  commentId  String?
+  comment    Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@index([reporterId])
+  @@index([postId])
+  @@index([commentId])
+}
+
+model Avatars {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

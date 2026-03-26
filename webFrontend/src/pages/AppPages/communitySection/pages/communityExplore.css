@@ -1,0 +1,65 @@
+.horizontal-carousel-container {
+  position: relative;
+  width: 100%;
+  /* Added max-width constraint for mobile */
+  max-width: 100vw;
+  overflow: hidden;
+  /* This creates the subtle fade effect at the edges */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.horizontal-carousel-content {
+  display: flex;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  /* Added width constraint and better mobile handling */
+  width: 100%;
+  max-width: 100%;
+  padding-bottom: 20px; /* Pushes scrollbar out of view */
+  margin-bottom: -20px; /* Hides the space created by padding */
+  scrollbar-width: none; /* Hides scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hides scrollbar for IE/Edge */
+}
+
+/* Hides scrollbar for Chrome, Safari, etc. */
+.horizontal-carousel-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Improved mobile-responsive carousel items */
+.carousel-item {
+  /* Made widths more mobile-friendly */
+  width: 160px; /* Reduced significantly for mobile */
+  flex-shrink: 0;
+  padding: 0 0.5rem;
+}
+
+/* Make the first and last items align with the edge of the container */
+.carousel-item:first-child {
+  padding-left: 0;
+}
+
+.carousel-item:last-child {
+  padding-right: 0;
+}
+
+/* Added mobile-specific styles */
+@media (max-width: 640px) {
+  .carousel-item {
+    width: 140px; /* Even smaller on mobile */
+    padding: 0 0.25rem;
+  }
+}
+
+/* Added larger screen responsive widths */
+@media (min-width: 768px) {
+  .carousel-item {
+    width: 200px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-item {
+    width: 240px;
+  }
+}

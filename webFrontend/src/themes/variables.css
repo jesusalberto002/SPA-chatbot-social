@@ -1,0 +1,245 @@
+/* =================================================================
+   SEMANTIC CSS CLASSES
+   - These classes USE the variables that are dynamically injected by the ThemeProvider.
+   - The variables themselves are NOT defined in this file.
+   ================================================================= */
+
+/* Layout Components */
+.main-container {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar {
+  background-color: var(--bg-sidebar);
+  border-color: var(--border-secondary);
+}
+
+.topbar {
+  background-color: var(--bg-topbar);
+  border-color: var(--border-secondary);
+}
+
+/* Card Components */
+.card {
+  background-color: var(--bg-card);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.card-secondary {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-secondary);
+  color: var(--text-primary);
+}
+
+.modal {
+  background-color: var(--bg-modal);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Text Components */
+.main-text {
+  color: var(--text-primary);
+}
+
+.secondary-text {
+  color: var(--text-secondary);
+}
+
+.tertiary-text {
+  color: var(--text-tertiary);
+}
+
+.muted-text {
+  color: var(--text-muted);
+}
+
+.inverse-text {
+  color: var(--text-inverse);
+}
+
+/* Button Components */
+.button-primary {
+  background-color: var(--brand-green);
+  color: white;
+  border-color: var(--brand-green);
+  transition: all 0.3s ease;
+}
+
+.button-primary:hover {
+  opacity: 0.9;
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+  transition: all 0.3s ease;
+}
+
+.button-secondary:hover {
+  background-color: var(--interactive-hover);
+  border-color: var(--border-hover);
+}
+
+/* Navigation Components */
+.nav-link {
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: var(--interactive-hover);
+  color: var(--brand-purple);
+}
+
+.nav-link.active {
+  color: var(--text-inverse);
+  background-color: var(--brand-green);
+}
+
+/* Form Components */
+.form-input {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px var(--interactive-focus);
+  outline: none;
+}
+
+/* Interactive States */
+.hover-interactive:hover {
+  background-color: var(--interactive-hover);
+}
+
+/* Status Components */
+.status-success {
+  color: var(--status-success);
+}
+
+.status-error {
+  color: var(--status-error);
+}
+
+.status-warning {
+  color: var(--status-warning);
+}
+
+.status-info {
+  color: var(--status-info);
+}
+
+/* Brand Colors */
+.brand-purple {
+  color: var(--brand-purple);
+}
+
+.brand-blue {
+  color: var(--brand-blue);
+}
+
+.brand-green {
+  color: var(--brand-green);
+}
+
+.brand-dark-green {
+  color: var(--brand-dark_green);
+}
+
+.brand-gradient-bg {
+  /* Using the variables injected by your ThemeProvider */
+  background: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-blue) 100%) !important;
+  color: white;
+}
+
+.brand-gradient-text {
+  background: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-gradient-text-tri {
+  background: linear-gradient(
+    135deg, 
+    var(--brand-purple) 0%, 
+    var(--brand-blue) 50%, 
+    var(--brand-teal, var(--brand-green)) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block; /* Ensures the gradient applies correctly to the text box */
+}
+
+/* Helper Class for Buttons/Backgrounds */
+.brand-gradient-bg-tri {
+  background: linear-gradient(
+    135deg, 
+    var(--brand-purple) 0%, 
+    var(--brand-blue) 50%, 
+    var(--brand-teal, var(--brand-green)) 100%
+  );
+  transition: opacity 0.3s ease;
+}
+
+.brand-gradient-bg-tri:hover {
+  opacity: 0.9;
+}
+
+/* ... etc for other brand/status colors */
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--brand-purple), var(--brand-blue));
+  border-radius: 4px;
+}
+
+/* Hide scrollbar arrow buttons globally */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+.Toastify__toast.toast-container {
+  /* Use semi-transparent background for the glass effect */
+  background-color: var(--toast-background) !important; 
+  color: var(--text-primary) !important; 
+  /* Force blur on the background */
+  backdrop-filter: blur(30px) !important; 
+  
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--border-secondary) !important; 
+  border-radius: 1rem !important; /* More rounded corners */
+  padding: 10 !important; /* Control padding inside body */
+  overflow: hidden; 
+  z-index: 510 !important; 
+}
+
+/* Target the inner content body */
+.Toastify__toast-body.toast-body {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0 !important;
+    color: var(--text-primary) !important;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}

@@ -1,0 +1,191 @@
+.animated-gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--brand-purple),
+    #c4b5fd,
+    var(--brand-blue),
+    #93c5fd,
+    var(--brand-teal),
+    #a7f3d0,
+    var(--brand-amber),
+    #fde047,
+    #f97316,
+    #fdba74,
+    var(--brand-purple)
+  );
+
+  background-size: 800% 800%;
+
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradient-animation 40s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Custom scrollbar for the textarea */
+.chat-textarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat-textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-textarea::-webkit-scrollbar-thumb {
+  background-color: var(--text-muted);
+  border-radius: 20px;
+  border: 3px solid transparent;
+}
+
+.chat-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Container for each message row */
+.message-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+/* Aligns user messages to the right */
+.message-row.user-message {
+  justify-content: flex-end;
+}
+
+/* Chat bubble styling */
+.chat-bubble-user {
+  background-color: var(--brand-purple);
+  color: var(--text-inverse);
+  padding: 0.75rem 1rem;
+  border-radius: 1.25rem;
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+/* Bot message styling */
+.chat-bubble-bot {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-secondary);
+  padding: 0.75rem 1rem;
+  border-radius: 1.25rem;
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+/* Input container styling */
+.chat-input-container {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  box-shadow: var(--shadow-xl);
+}
+
+/* Focus states */
+.chat-textarea:focus {
+  outline: none;
+  border: none;
+}
+
+/* Avatar styling */
+.chat-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-avatar.bot {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  color: var(--brand-purple);
+}
+
+.chat-avatar.user {
+  background-color: var(--brand-purple);
+  color: var(--text-inverse);
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px; /* Ensures consistent height */
+}
+
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  /* A fallback color is used in case your CSS variable isn't available */
+  background-color: var(--text-tertiary, #6b7280);
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 2px;
+  /* The 'bounce' animation is applied here */
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+/* This creates the sequential "bouncing" effect */
+.typing-indicator span:nth-of-type(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-of-type(2) { animation-delay: -0.16s; }
+
+.bot-message-content ul {
+  list-style-type: disc; /* Use standard bullets */
+  padding-left: 20px;    /* Indent the list */
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.bot-message-content li {
+  margin-bottom: 4px; /* Add some space between list items */
+}
+
+.bot-message-content strong {
+  font-weight: 600; /* Make bold text stand out a bit more */
+  color: var(--text-primary);
+}
+
+.bot-message-content p {
+  margin-bottom: 8px; /* Add space between paragraphs */
+}
+
+/* Ensure the last element in a bubble doesn't have extra margin */
+.bot-message-content > *:last-child {
+  margin-bottom: 0;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chat-bubble-user,
+  .chat-bubble-bot {
+    max-width: 85%;
+  }
+
+  .message-row {
+    gap: 0.5rem;
+  }
+}

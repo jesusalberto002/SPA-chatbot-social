@@ -1,0 +1,49 @@
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+    display: flex;
+    width: fit-content;
+    /* Apply the default right-to-left animation */
+    animation: marquee-scroll-left 60s linear infinite;
+}
+
+/* --- NEW: Add a class to apply the reverse animation --- */
+.marquee-reverse .marquee-content {
+    animation-name: marquee-scroll-right;
+}
+
+.marquee-container:hover .marquee-content {
+    animation-play-state: paused;
+}
+
+.marquee-item {
+    width: 300px;
+    flex-shrink: 0;
+    padding: 0 1rem;
+}
+
+/* --- UPDATED: Renamed for clarity --- */
+@keyframes marquee-scroll-left {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* --- NEW: Keyframes for the reverse (left-to-right) direction --- */
+@keyframes marquee-scroll-right {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}

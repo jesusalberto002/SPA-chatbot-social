@@ -1,0 +1,70 @@
+================================================================================
+Terraform: will `apply` destroy my existing VPC / RDS / bastion?
+================================================================================
+No — not by itself. Terraform compares your *.tf files to **state** and only
+applies **differences**. Adding `ecr.tf` **creates a new ECR repository** and
+does not replace unrelated resources.
+
+You would lose or replace things only if you:
+  - change a resource in a way that forces **replacement** (Terraform will say so in the plan), or
+  - run `terraform destroy`, or
+  - remove resources from .tf (then apply would try to destroy them).
+
+Always run `terraform plan` before `apply` and read the plan.
+
+================================================================================
+1) Apply Terraform (create ECR)
+================================================================================
+cd terraform
+terraform plan
+terraform apply
+
+Note the output:
+  ecr_backend_repository_url   (e.g. 123456789012.dkr.ecr.ap-southeast-2.amazonaws.com/haivens-dev-backend)
+
+================================================================================
+2) Build the image (context = backend/ — required for COPY paths in Dockerfile)
+================================================================================
+# PowerShell
+
+cd <path-to-repo-root>\Haivens\backend
+
+docker build -t haivens-backend:latest .
+
+================================================================================
+3) Authenticate Docker to ECR
+================================================================================
+# Set your AWS account ID and region (must match terraform aws_region)
+$ACCOUNT_ID = "123456789012"
+$REGION     = "ap-southeast-2"
+
+aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin "$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com"
+
+================================================================================
+4) Tag and push
+================================================================================
+# Use the full repository URL from terraform output + :tag
+$REPO = "$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/haivens-dev-backend"
+
+docker tag haivens-backend:latest "${REPO}:latest"
+docker push "${REPO}:latest"
+
+# Optional version tag
+# docker tag haivens-backend:latest "${REPO}:v1.0.0"
+# docker push "${REPO}:v1.0.0"
+
+================================================================================
+5) Runtime env (ECS task — not baked into the image)
+================================================================================
+Set in the task definition or Secrets Manager, for example:
+  DATABASE_URL or DB_HOST / DB_PORT / DB_USER / DB_PASSWORD / DB_NAME
+  JWT_SECRET, STRIPE_*, GOOGLE_APPLICATION_CREDENTIALS (file or secret)
+  PORT=3000  (must match ALB target group port)
+
+Do not copy production .env into the image.
+
+================================================================================
+Frontend (reminder)
+================================================================================
+The SPA is not pushed to ECR. Build with `npm run build` in webFrontend/ and
+deploy `dist/` to S3 + CloudFront separately.

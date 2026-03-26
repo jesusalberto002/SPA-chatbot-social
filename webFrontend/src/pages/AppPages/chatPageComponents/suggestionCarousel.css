@@ -1,0 +1,97 @@
+/*
+  This is the root element and the main scroller.
+  It is a flex container that handles the scrolling.
+*/
+.suggestion-carousel-container {
+    display: flex;
+    overflow-x: auto; /* This is the key for horizontal scrolling */
+    position: relative;
+    padding-top: 0.5rem; /* Provides room for the card's hover effect */
+    padding-bottom: 0.5rem;
+    
+    /* Adds a nice "snapping" behavior when scrolling on mobile */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* Improves scrolling feel on iOS */
+
+    /* Hide the scrollbar visually across all browsers */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+.suggestion-carousel-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
+
+/*
+  FIX: Use pseudo-elements for a reliable fade effect.
+  This is more robust than a CSS mask and won't break the layout.
+*/
+.suggestion-carousel-container::before,
+.suggestion-carousel-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1.5rem; /* Width of the fade */
+    pointer-events: none; /* Allows clicking/scrolling through the fade */
+    z-index: 2;
+}
+
+.suggestion-carousel-container::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-primary), transparent);
+}
+
+.suggestion-carousel-container::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-primary), transparent);
+}
+
+/* Individual card wrapper in the carousel */
+.suggestion-carousel-item {
+    flex: 0 0 auto; /* Prevents cards from shrinking */
+    width: 150px;
+    scroll-snap-align: start; /* Snap items to the start of the container */
+}
+
+/* Use margin for spacing between cards */
+.suggestion-carousel-item + .suggestion-carousel-item {
+    margin-left: 0.75rem; /* 12px */
+}
+
+/* --- Card styles remain the same --- */
+.suggestion-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.suggestion-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-hover);
+}
+
+.suggestion-card img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.suggestion-card-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.2;
+}

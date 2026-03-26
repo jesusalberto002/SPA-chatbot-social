@@ -1,0 +1,99 @@
+/* src/components/HorizontalScrollSection.css */
+
+.scroll-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+/* The main container for the scrolling content */
+.horizontal-scroll-wrapper {
+  position: relative;
+}
+
+.horizontal-scroll-content {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  gap: 1rem; /* Space between cards */
+  padding-bottom: 1rem; /* Space for content below cards if needed */
+  
+  /* Hide the scrollbar visually */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.horizontal-scroll-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Each card's wrapper */
+.horizontal-scroll-item {
+  flex: 0 0 auto; /* This is crucial: prevents cards from shrinking */
+  width: 75%;    /* On mobile, each card is 75% of the screen width */
+  max-width: 280px; /* But they won't get bigger than 280px */
+}
+
+/* Full-bleed effect on mobile to break out of parent padding */
+@media (max-width: 767px) {
+  .horizontal-scroll-wrapper {
+    margin-left: -1rem; /* Match parent's horizontal padding */
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+  }
+  .horizontal-scroll-content {
+    /* Add padding back inside the scroller */
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .horizontal-scroll-wrapper {
+    /* Fading effect on the edges for desktop */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  }
+  .horizontal-scroll-content {
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+  }
+  .horizontal-scroll-item {
+    width: 280px; /* Use a fixed width on desktop for a clean grid-like look */
+  }
+}
+
+/* Desktop navigation buttons */
+.scroll-button {
+  display: none; /* Hidden on mobile */
+}
+
+@media (min-width: 768px) {
+  .scroll-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-card);
+    color: var(--text-secondary);
+    border-radius: 9999px;
+    border: 1px solid var(--border-primary);
+    width: 40px;
+    height: 40px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .scroll-button:not(:disabled):hover {
+    background-color: var(--interactive-hover);
+    color: var(--text-primary);
+    transform: scale(1.05);
+  }
+
+  .scroll-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
