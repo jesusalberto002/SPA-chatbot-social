@@ -111,8 +111,8 @@ export const lightTheme = {
       red: "rgb(220 38 38)",
     },
     toast: {
-      background: "rgba(15, 23, 42, 0.82)",
-      text: "rgb(255 255 255)",
+      background: "rgb(255 255 255)",
+      text: "rgb(15 23 42)",
     },
     status: {
       success: "rgb(5 150 105)", // emerald-600

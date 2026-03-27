@@ -28,22 +28,20 @@ export function ProductCard({ title, image, gradient, imageGradient, delay = 0 }
       )}>
         <div
           className={cn(
-            "absolute inset-0 bg-black/20 transition-opacity duration-300 z-10", // Added z-10
+            "absolute inset-0 bg-black/20 transition-opacity duration-300 z-10",
             isHovered ? "opacity-0" : "opacity-100",
           )}
         />
-        {/* FIX 1: Image is now absolute, w-full, h-full, and object-cover 
-          to fill the entire container.
-        */}
-        <img
-          src={image || "https://placehold.co/300x200/4a4a4a/ffffff?text=Product"}
-          alt={`${title} tier`}
-          // Removed width and height props, as className handles it
-          className={cn(
-            "absolute inset-0 w-full h-full object-cover transition-all duration-500", // Fills parent
-            isHovered ? "scale-110 opacity-100" : "opacity-80"
-          )}
-        />
+        {image ? (
+          <img
+            src={image}
+            alt={`${title} tier`}
+            className={cn(
+              "absolute inset-0 w-full h-full object-cover transition-all duration-500 z-0",
+              isHovered ? "scale-110 opacity-100" : "opacity-80",
+            )}
+          />
+        ) : null}
       </div>
       <div className="p-8 text-center">
         <h3 className={cn("text-4xl font-bold text-white mb-6 transition-all duration-300", isHovered && "scale-105")}>

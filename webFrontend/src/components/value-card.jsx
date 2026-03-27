@@ -6,24 +6,30 @@ import { useState } from "react"
 
 
 export function ValueCard({ title, image, gradient, textColor, delay = 0, hoverText }) {
-  // 'gradient' and 'textColor' props are no longer used by this updated component,
-  // as the image covers the card and text is now white for readability.
-  
+  const bgGradient = gradient || "bg-gradient-to-br from-slate-600 to-slate-800"
+
   return (
     <Card
       className={cn(
-        "rounded-3xl border-0 h-80 cursor-pointer group relative overflow-hidden", // Key changes: removed padding, flex. Added overflow-hidden
+        "rounded-3xl border-0 h-80 cursor-pointer group relative overflow-hidden",
         "transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-2",
         "hover:shadow-2xl hover:shadow-black/20",
-        // 'gradient' prop is no longer used here
       )}
     >
-      {/* Background Image */}
-      <img
-        src={image || "/placeholder.svg"}
-        alt={`${title} illustration`}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-      />
+      {image ? (
+        <img
+          src={image}
+          alt={`${title} illustration`}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+      ) : (
+        <div
+          className={cn(
+            "absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105",
+            bgGradient,
+          )}
+        />
+      )}
 
       {/* Container for original content (Title) */}
       <div className={cn(
