@@ -188,7 +188,7 @@ export default function PostAIChat({ post }) {
                         <div className="flex justify-between items-center p-4 border-b" style={{ borderColor: 'var(--border-secondary)' }}>
                             <h3 className="font-bold main-text flex items-center gap-2">
                                 <i className="fa-solid fa-brain" style={{ color: "var(--brand-purple)" }}></i>
-                                Haivens AI Temporary Chat
+                                AI temporary chat
                             </h3>
                             <button onClick={toggleOpen} className="p-1 rounded-full hover-interactive">
                                 <X className="w-5 h-5 tertiary-text" />
@@ -199,7 +199,7 @@ export default function PostAIChat({ post }) {
                         <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
                             {!messages.length && (
                                 <div className="text-center p-6 tertiary-text">
-                                    Ask Haiven anything about the post you're viewing: <i className="italic">"{post.title}"</i>
+                                    Ask the assistant anything about the post you're viewing: <i className="italic">"{post.title}"</i>
                                 </div>
                             )}
                             {messages.map((msg, index) => (
@@ -225,7 +225,7 @@ export default function PostAIChat({ post }) {
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     onKeyDown={handleKeyDown}
-                                    placeholder={isSending ? "Sending..." : "Ask Haiven privately..."}
+                                    placeholder={isSending ? "Sending..." : "Message the assistant privately..."}
                                     className="flex-grow bg-transparent text-sm resize-none chat-textarea py-1 focus:outline-none"
                                     style={{ color: "var(--text-primary)" }}
                                     maxRows={3}

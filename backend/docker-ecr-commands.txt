@@ -20,16 +20,16 @@ terraform plan
 terraform apply
 
 Note the output:
-  ecr_backend_repository_url   (e.g. 123456789012.dkr.ecr.ap-southeast-2.amazonaws.com/haivens-dev-backend)
+  ecr_backend_repository_url   (e.g. 123456789012.dkr.ecr.ap-southeast-2.amazonaws.com/demo-dev-backend)
 
 ================================================================================
 2) Build the image (context = backend/ — required for COPY paths in Dockerfile)
 ================================================================================
 # PowerShell
 
-cd <path-to-repo-root>\Haivens\backend
+cd <path-to-repo-root>\your-repo\backend
 
-docker build -t haivens-backend:latest .
+docker build -t demo-backend:latest .
 
 ================================================================================
 3) Authenticate Docker to ECR
@@ -44,13 +44,13 @@ aws ecr get-login-password --region $REGION | docker login --username AWS --pass
 4) Tag and push
 ================================================================================
 # Use the full repository URL from terraform output + :tag
-$REPO = "$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/haivens-dev-backend"
+$REPO = "$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/demo-dev-backend"
 
-docker tag haivens-backend:latest "${REPO}:latest"
+docker tag demo-backend:latest "${REPO}:latest"
 docker push "${REPO}:latest"
 
 # Optional version tag
-# docker tag haivens-backend:latest "${REPO}:v1.0.0"
+# docker tag demo-backend:latest "${REPO}:v1.0.0"
 # docker push "${REPO}:v1.0.0"
 
 ================================================================================

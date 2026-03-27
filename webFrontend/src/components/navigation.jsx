@@ -61,8 +61,8 @@ export function Navigation({ isFrontPage }) {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollToSection("hero")}>
           <img
-              src="/white_logo_transparent.png"
-              alt="Haivens Logo"
+              src="/logo-on-dark-bg.svg"
+              alt="App logo"
               width={150}
               height={50}
               className="flex-shrink-0"

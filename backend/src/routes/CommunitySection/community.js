@@ -6,7 +6,7 @@ const exploreController = require('../../controllers/Users/CommunitySection/expl
 const popularController = require('../../controllers/Users/CommunitySection/popular');
 const reportController = require('../../controllers/Users/CommunitySection/report');
 const chatController = require('../../controllers/Users/chat');
-const HaivenAIController = require('../../controllers/Users/HaivenAI');
+const assistantAIController = require('../../controllers/Users/assistantAI');
 
 const upload = require('../../middleware/uploadMiddleware'); // Assuming you have a file upload middleware
 
@@ -37,7 +37,7 @@ router.post('/post/comment/reply/:parentCommentId', postCommentController.create
 router.post('/post/comment/react/:commentId', postCommentController.toggleCommentReaction);
 router.post('/post/comment/vote/:commentId', postCommentController.voteOnComment);
 router.get('/post/comment/get/:postId', postCommentController.getPostComments);
-router.post('/post/comment/ask-haiven/:postId', HaivenAIController.askHaivenInCommunity);
+router.post('/post/comment/ask-assistant/:postId', assistantAIController.askAssistantInCommunity);
 
 // Routes to fecth data for explore page
 router.get('/explore/by-tag/:tag', exploreController.getCommunitiesByTag);

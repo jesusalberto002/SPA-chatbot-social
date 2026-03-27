@@ -33,6 +33,6 @@ resource "aws_instance" "bastion" {
   key_name                    = var.bastion_key_name
 
   tags = {
-    Name = "haivens-bastion"
+    Name = "demo-bastion"
   }
 }

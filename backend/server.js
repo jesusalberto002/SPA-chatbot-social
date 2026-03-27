@@ -6,6 +6,12 @@ const { Pool } = require('pg');
 const indexRoutes = require('./src/routes/index');
 const stripeRoutes = require('./src/routes/stripe');
 
+// Local Postgres usually has no SSL; RDS/cloud needs it — set DB_SSL=true in production.
+const dbSsl =
+  process.env.DB_SSL === 'true' || process.env.DB_SSL === '1'
+    ? { rejectUnauthorized: false }
+    : false;
+
 // Initialize PostgreSQL connection pool
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -13,7 +19,7 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
-  ssl: { rejectUnauthorized: false },
+  ssl: dbSsl,
 });
 
 // In your server.js or index.js
@@ -47,10 +53,8 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
-    'https://haivens-frontend.onrender.com',
     'https://d2lncv8bc1ga81.cloudfront.net',
-    'https://haivens.com',
-    'https://www.haivens.com',
+    ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map((s) => s.trim()) : []),
 ];
 
 const corsOptions = {
@@ -75,7 +79,7 @@ app.use(cors(corsOptions));
 
 // Initial server route
 app.get('/', (req, res) => {
-  res.send('Welcome to HAIVENS development server');
+  res.send('Welcome to the API development server');
 });
 
 app.use('/api', indexRoutes);

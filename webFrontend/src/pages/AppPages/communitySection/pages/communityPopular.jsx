@@ -42,7 +42,7 @@ export default function CommunityPopular({ onPostClick, onCommunityClick }) {
         <div>
             <div className="text-center mb-12">
                 <h1 className="text-4xl font-bold main-text">Popular & Trending</h1>
-                <p className="text-lg secondary-text mt-2">See what's currently popular in the Haivens community.</p>
+                <p className="text-lg secondary-text mt-2">See what's currently popular in the community.</p>
             </div>
 
             {/* Trending Tags Section */}

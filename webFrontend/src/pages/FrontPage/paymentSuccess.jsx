@@ -78,7 +78,7 @@ const PaymentSuccess = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Your HAIVENS account is ready!</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Your account is ready!</h1>
             <p className="text-lg text-gray-600 mb-8">
                 Your account has been upgraded to the <span className="font-bold text-[var(--brand-green)]">{user?.subscriptionTier}</span> plan.
             </p>

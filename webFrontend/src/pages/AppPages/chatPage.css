@@ -2,15 +2,13 @@
   background: linear-gradient(
     90deg,
     var(--brand-purple),
-    #c4b5fd,
+    #818cf8,
     var(--brand-blue),
-    #93c5fd,
+    #38bdf8,
     var(--brand-teal),
-    #a7f3d0,
-    var(--brand-amber),
-    #fde047,
-    #f97316,
-    #fdba74,
+    #22d3ee,
+    #3b82f6,
+    #6366f1,
     var(--brand-purple)
   );
 

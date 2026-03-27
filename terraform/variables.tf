@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "project_name" {
   type        = string
   description = "Short project name used in resource names and tags."
-  default     = "haivens"
+  default     = "wellness-demo"
 }
 
 variable "environment" {
@@ -31,13 +31,13 @@ variable "db_identifier" {
 variable "db_name" {
   type        = string
   description = "Initial PostgreSQL database name."
-  default     = "haivens"
+  default     = "demo_app"
 }
 
 variable "db_username" {
   type        = string
   description = "Master username for RDS."
-  default     = "haivens"
+  default     = "demo_app"
 }
 
 variable "db_engine_version" {
@@ -174,7 +174,7 @@ variable "frontend_hosted_zone_id" {
 
 variable "frontend_domain_names" {
   type        = list(string)
-  description = "Optional custom domains for the frontend CloudFront distribution (e.g. [\"haivens.com\", \"www.haivens.com\"])."
+  description = "Optional custom domains for the frontend CloudFront distribution (e.g. [\"app.example.com\", \"www.app.example.com\"])."
   default     = []
 }
 

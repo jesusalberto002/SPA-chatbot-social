@@ -69,12 +69,12 @@ const vertex_ai = new VertexAI({
 
 const deepgram = createClient(process.env.DEEPGRAM_API_KEY);
 
-const HAIVEN_BOT_USER_ID = 100; // The static ID for the Haiven AI user.
+const ASSISTANT_BOT_USER_ID = 100; // Static ID for the built-in assistant user.
 
 // --- UPDATED: Added the detailed system instruction to the text model ---
 const systemInstruction = {
     parts: [{
-        text: `You are "Haivens," a compassionate and supportive mental health assistant. Your primary goal is to provide a safe, non-judgmental space for users to express their feelings.
+        text: `You are a compassionate and supportive mental health assistant. Your primary goal is to provide a safe, non-judgmental space for users to express their feelings.
 - Your tone should always be warm, gentle, and empathetic.
 - Gradually build rapport with the user by remembering details from the chat history. Refer back to things they've said.
 - Provide gentle support, tips, and advice when appropriate, but always frame it as a suggestion, not a command. Example: "Sometimes when I feel overwhelmed, a short breathing exercise can help. Would you be open to trying one?"
@@ -404,7 +404,7 @@ exports.handleChatMessage = async (req, res) => {
     }
 };
 
-// Add this helper function somewhere accessible in HaivenAI.js, 
+// Add this helper function somewhere accessible in assistantAI.js, 
 // for consistency, you could place it near the existing history logic:
 
 const formatMessagesForGemini = (messages) => {
@@ -461,7 +461,7 @@ exports.getAITemporaryChat = async (req, res) => {
 /**
  * Generates an AI response based on a post's content and a user's question.
  */
-exports.askHaivenInCommunity = async (req, res) => {
+exports.askAssistantInCommunity = async (req, res) => {
     const { postId } = req.params;
     // CORRECTED: Expect a simple string for the comment text.
     const { userCommentText } = req.body; 
@@ -494,7 +494,7 @@ exports.askHaivenInCommunity = async (req, res) => {
         });
 
         // 2. Prepare the prompt for the AI.
-        const question = userCommentText.replace(/@Haivens/gi, "").trim();
+        const question = userCommentText.replace(/@assistant\b/gi, "").trim();
         const prompt = `${systemInstruction}, 
             Based on the following post, please answer the user's question concisely, since it is a comment reply,
             your role is to reply the user, do not try to follow up with a question at the end of your reply.
@@ -506,11 +506,11 @@ exports.askHaivenInCommunity = async (req, res) => {
         const aiResponseText = await getBotTextResponse(prompt);
 
         // 3. Save the AI's response as a reply to the user's comment.
-        const haivenResponseComment = await prisma.comment.create({
+        const assistantResponseComment = await prisma.comment.create({
             data: {
                 text: aiResponseText,
                 postId: postId,
-                authorId: HAIVEN_BOT_USER_ID,
+                authorId: ASSISTANT_BOT_USER_ID,
                 replyToId: createdUserComment.id 
             },
             include: {
@@ -528,20 +528,20 @@ exports.askHaivenInCommunity = async (req, res) => {
 
         console.log("User comment saved:", formattedUserComment);
 
-        const formattedHaivenComment = {
-            ...haivenResponseComment,
-            authorName: 'Haiven AI',
+        const formattedAssistantComment = {
+            ...assistantResponseComment,
+            authorName: 'Assistant',
             replies: [],
         };
         
         // 5. Nest the AI reply inside the user's comment for the frontend response.
-        formattedUserComment.replies.push(formattedHaivenComment);
+        formattedUserComment.replies.push(formattedAssistantComment);
 
         // 6. Return the user's comment, which now contains the AI's reply.
         res.status(201).json({ userComment: formattedUserComment });
 
     } catch (error) {
-        console.error("Error asking Haiven in community:", error);
+        console.error("Error asking assistant in community:", error);
         res.status(500).json({ error: 'Internal server error.' });
     }
 };
@@ -578,9 +578,9 @@ exports.getConvStartersSuggestions = async (req, res) => {
 
         const prompt = `
             You are a creative assistant that generates conversation starters.
-            Your task is to generate 4 simple, first-person questions that a USER can click to send to their AI assistant (named Haiven).
+            Your task is to generate 4 simple, first-person questions that a USER can click to send to their AI assistant.
 
-            The questions must be phrased from the USER'S perspective, as if they are asking Haiven for help or information.
+            The questions must be phrased from the USER'S perspective, as if they are asking the assistant for help or information.
 
             CONTEXT:
             User's Top Interests: ${userTags.join(', ') || 'none'}
@@ -608,7 +608,7 @@ exports.getConvStartersSuggestions = async (req, res) => {
             }
         `;
         
-        // 4. Call the AI model directly (bypassing the Haiven system instruction)
+        // 4. Call the AI model directly (bypassing the main chat system instruction)
         const chat = textModel.startChat({}); // Start a chat with no system prompt
         const result = await chat.sendMessage(prompt);
         const response = result.response;

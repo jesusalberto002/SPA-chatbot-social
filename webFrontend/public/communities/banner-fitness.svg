@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120" aria-hidden="true">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="120" fill="url(#g2)" rx="12"/>
+  <path d="M60 85 L120 35 L180 85 L240 40 L300 85 L360 50" stroke="#ffffff" stroke-width="4" fill="none" opacity="0.35" stroke-linecap="round"/>
+  <text x="200" y="68" text-anchor="middle" fill="#ecfdf5" font-family="system-ui,sans-serif" font-size="22" font-weight="600">Fitness</text>
+</svg>

@@ -43,8 +43,8 @@ export default function LoginPage() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <img
-              src="/black_logo_transparent.png"
-              alt="Haivens Logo"
+              src="/logo-on-light-bg.svg"
+              alt="App logo"
               width={150}
               height={50}
               className="flex-shrink-0"
@@ -163,7 +163,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Decorative Image */}
-      <div className="hidden lg:flex flex-1 relative bg-gradient-to-br from-[var(--brand-green)] via-[var(--brand-dark_green)] to-[#067A68]">
+      <div className="hidden lg:flex flex-1 relative bg-gradient-to-br from-[var(--brand-green)] via-[var(--brand-dark_green)] to-[rgb(30_58_138)]">
         {/* Decorative Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div

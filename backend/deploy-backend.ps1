@@ -6,10 +6,10 @@ param(
   [string]$Region = "ap-southeast-2",
 
   [Parameter(Mandatory = $false)]
-  [string]$RepositoryName = "haivens-dev-backend",
+  [string]$RepositoryName = "demo-dev-backend",
 
   [Parameter(Mandatory = $false)]
-  [string]$LocalImageName = "haivens-backend",
+  [string]$LocalImageName = "demo-backend",
 
   [Parameter(Mandatory = $false)]
   [string]$Tag = "",

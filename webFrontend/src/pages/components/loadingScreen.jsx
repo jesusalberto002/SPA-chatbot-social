@@ -8,8 +8,8 @@ const FullPageLoader = () => {
   // Chooses the black logo for the white background
   // or the white logo if the app is in a darker state
   const logoSrc = theme === "light" 
-    ? "/black_logo_transparent.png" 
-    : "/white_logo_transparent.png";
+    ? "/logo-on-light-bg.svg" 
+    : "/logo-on-dark-bg.svg";
 
   return (
     <div className="bg-primary fixed inset-0 z-[9999] flex items-center justify-center">
@@ -32,7 +32,7 @@ const FullPageLoader = () => {
         {/* Small Logo */}
         <img
           src={logoSrc}
-          alt="Haivens"
+          alt="App logo"
           className="h-8 w-auto object-contain opacity-80"
         />
       </div>

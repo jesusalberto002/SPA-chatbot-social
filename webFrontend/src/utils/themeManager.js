@@ -13,8 +13,7 @@ export class ThemeManager {
    * Get the initial theme based on localStorage or system preference
    */
   getInitialTheme() {
-    // Check localStorage first
-    const savedTheme = localStorage.getItem("haivens-theme")
+    const savedTheme = localStorage.getItem("app-theme")
     if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
       return savedTheme
     }
@@ -41,7 +40,7 @@ export class ThemeManager {
     }
 
     // Save to localStorage
-    localStorage.setItem("haivens-theme", theme)
+    localStorage.setItem("app-theme", theme)
     this.currentTheme = theme
 
     // Dispatch custom event for components that need to react to theme changes
@@ -84,7 +83,7 @@ export class ThemeManager {
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
       mediaQuery.addEventListener("change", (e) => {
         // Only auto-switch if user hasn't manually set a preference
-        const savedTheme = localStorage.getItem("haivens-theme")
+        const savedTheme = localStorage.getItem("app-theme")
         if (!savedTheme) {
           this.applyTheme(e.matches ? "dark" : "light")
         }

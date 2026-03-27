@@ -8,7 +8,7 @@ const pages = [
   {
     page: 1,
     icon: Heart,
-    title: 'Welcome to HAIVENS!',
+    title: 'Welcome!',
     content: (
       <p className="text-gray-600 text-center leading-relaxed text-lg">
         We're so excited to have you. Let's take a quick tour to help you get settled in and start your journey to better well-being.

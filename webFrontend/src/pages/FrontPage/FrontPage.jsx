@@ -39,11 +39,9 @@ export default function FrontPage() {
         {/* 2. Dimming Overlay Div */}
         <div className="absolute inset-0 bg-black/60 z-10"></div> 
 
-        {/* 3. Original "H" element (z-index updated) */}
-        <div className="absolute inset-0 opacity-10 z-20">
-        <div className="text-[40vw] font-bold text-gray-800 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 select-none animate-float">
-             H
-          </div>
+        {/* Decorative background (generic, no trademark) */}
+        <div className="absolute inset-0 opacity-10 z-20 pointer-events-none">
+          <div className="w-[min(85vw,720px)] h-[min(85vw,720px)] rounded-full bg-gradient-to-br from-gray-600/40 to-gray-900/20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-3xl animate-float" />
         </div>
 
         {/* 4. Original Content (z-index updated) */}
@@ -54,8 +52,8 @@ export default function FrontPage() {
             delay={200}
           >
             <img
-              src="/white_logo_transparent.png"
-              alt="Haivens Logo"
+              src="/logo-on-dark-bg.svg"
+              alt="App logo"
               width={150}
               height={50}
               className="flex-shrink-0"
@@ -450,12 +448,12 @@ export default function FrontPage() {
                 <h2 className="text-6xl md:text-8xl font-bold mb-8 text-white leading-tight">ABOUT US</h2>
                 <div className="space-y-6 text-white">
                   <p className="text-lg leading-relaxed">
-                    At HAIVENS, we believe in the power of technology to improve mental well-being. We are a dedicated
-                    team of professionals passionate about creating a more accessible and supportive mental health
+                    This demo showcases how technology can support mental well-being. It is presented by a small
+                    team focused on a more accessible and supportive mental health
                     landscape.
                   </p>
                   <p className="text-lg leading-relaxed">
-                    HAIVENS is an AI-powered platform designed to provide personalized mental health support. Our
+                    The demo is an AI-powered experience designed to illustrate personalized mental health support. Our
                     mission is to make high-quality mental health resources available to everyone, regardless of their
                     location, income, or background.
                   </p>
@@ -503,14 +501,14 @@ export default function FrontPage() {
                     <br />
                     SUPPORT
                   </h2>
-                  <p className="text-xl text-white font-semibold">CHECK OUT HAIVENS SOCIAL</p>
+                  <p className="text-xl text-white font-semibold">COMMUNITY DEMO</p>
                 </div>
               </div>
               <div className="bg-gray-900 p-12 flex flex-col justify-center">
                 <div className="space-y-8">
                   <div>
                     <h3 className="text-2xl font-bold text-purple-400 mb-4">EMAIL</h3>
-                    <p className="text-white text-lg">info@haivens.com</p>
+                    <p className="text-white text-lg">support@example.com</p>
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-purple-400 mb-6">SOCIAL</h3>
@@ -537,13 +535,11 @@ export default function FrontPage() {
       <footer className="bg-black border-t border-gray-800 py-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0 hover:scale-105 transition-transform duration-300">
-              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover-glow">
-                <span className="text-black font-bold text-sm">H</span>
-              </div>
-              <span className="text-xl font-bold text-white">HAIVENS</span>
+            <div className="flex items-center space-x-3 mb-4 md:mb-0 hover:scale-105 transition-transform duration-300">
+              <img src="/logo-on-dark-bg.svg" alt="" width={32} height={32} className="h-8 w-auto opacity-90" />
+              <span className="text-xl font-bold text-white">Wellness demo</span>
             </div>
-            <p className="text-gray-400 text-sm">© 2024 HAIVENS. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} Demo. All rights reserved.</p>
           </div>
         </div>
       </footer>

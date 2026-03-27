@@ -243,7 +243,7 @@ const Sidebar = ({
   }
 
   const getLogoSrc = () => {
-    return theme === "light" ? "/black_logo_transparent.png" : "/white_logo_transparent.png"
+    return theme === "light" ? "/logo-on-light-bg.svg" : "/logo-on-dark-bg.svg"
   }
 
   return (
@@ -266,7 +266,7 @@ const Sidebar = ({
                 isExpanded ? "w-auto" : "w-0"
               }`}
             >
-              <img src={getLogoSrc()} alt="Haivens Logo" width={120} height={40} className="flex-shrink-0" />
+              <img src={getLogoSrc()} alt="App logo" width={120} height={40} className="flex-shrink-0" />
             </div>
 
             {/* Conditionally render the correct button for desktop vs mobile */}

@@ -365,7 +365,7 @@ const Chat = ({ sessionId, onSessionChange, setChatHistoryRefresh }) => {
 
   // Future carousel logic
   const handleSuggestionClick = (suggestionText) => {
-    const messageText = "Hello Haiven, I am interested about " + suggestionText + " and I would like to talk about this topic.";
+    const messageText = "Hello, I am interested about " + suggestionText + " and I would like to talk about this topic.";
     const syntheticEvent = { preventDefault: () => {} };
     console.log("Suggestion clicked:", suggestionText);
     handleSendMessage(syntheticEvent, messageText);
@@ -462,7 +462,7 @@ const Chat = ({ sessionId, onSessionChange, setChatHistoryRefresh }) => {
       if (navigator.share) {
           try {
               await navigator.share({
-                  title: 'Haiven Chat Message',
+                  title: 'Chat message',
                   text: text,
               });
           } catch (error) {

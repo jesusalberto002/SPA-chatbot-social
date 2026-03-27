@@ -132,7 +132,7 @@ const addReplyRecursively = (comments, reply, parentId) => {
 
         setIsSubmitting(true);
 
-        const isHaivenQuery = trimmedComment.toLowerCase().startsWith('@haivens');
+        const isAssistantQuery = /^@assistant\b/i.test(trimmedComment);
 
         // ---------- OPTIMISTIC USER COMMENT ----------
         const optimisticUserComment = {
@@ -146,15 +146,15 @@ const addReplyRecursively = (comments, reply, parentId) => {
             profileImageUrl: user?.profileImageUrl,
         };
 
-        // Add "thinking…" HAIVEN placeholder reply
-        if (isHaivenQuery) {
+        // Add "thinking…" assistant placeholder reply
+        if (isAssistantQuery) {
             optimisticUserComment.replies.push({
                 id: `thinking-${Date.now()}`,
-                authorName: "Haiven AI",
+                authorName: "Assistant",
                 text: "Thinking...",
                 createdAt: new Date().toISOString(),
                 isPlaceholder: true,
-                profileImageUrl: "/haiven-ai-avatar.png",
+                profileImageUrl: "/assistant-avatar.svg",
             });
         }
 
@@ -165,10 +165,10 @@ const addReplyRecursively = (comments, reply, parentId) => {
         try {
             let response;
 
-            // ---------- HAIVEN QUERY ----------
-            if (isHaivenQuery) {
+            // ---------- Assistant mention query ----------
+            if (isAssistantQuery) {
                 response = await api.post(
-                    `/community/post/comment/ask-haiven/${post.id}`,
+                    `/community/post/comment/ask-assistant/${post.id}`,
                     { userCommentText: trimmedComment }
                 );
 
@@ -267,7 +267,7 @@ const addReplyRecursively = (comments, reply, parentId) => {
                         type="text"
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="Write a comment or ask @Haivens..."
+                        placeholder="Write a comment or ask @assistant..."
                         className="w-full form-input rounded-full py-2 px-4 text-sm"
                         disabled={isSubmitting}
                     />

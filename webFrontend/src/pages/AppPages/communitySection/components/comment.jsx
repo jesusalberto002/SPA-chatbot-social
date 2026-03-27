@@ -86,7 +86,7 @@ export default function Comment({ comment, onReplyCreated, onDelete, onSetReplyC
         return Object.entries(summary).sort((a, b) => b[1] - a[1]);
     }, [reactions]);
 
-    const isHaivenAI = authorId === 100; // Check if the author is the bot
+    const isAssistantBot = authorId === 100; // System assistant user id
 
     const handleVote = async (voteType) => {
         const originalLikes = likes;
@@ -196,7 +196,7 @@ export default function Comment({ comment, onReplyCreated, onDelete, onSetReplyC
     return (
         // Minimal gap, no padding, relying on parent's padding
         <div className="flex items-start gap-1"> 
-            {isHaivenAI ? (
+            {isAssistantBot ? (
                 <div className="ml-0.5 mt-4 h-9 w-9 rounded-full flex items-center justify-center flex-shrink-0 bg-purple-500/20 border border-purple-500/30">
                     <BrainCircuit className="w-5 h-5 text-purple-400" />
                 </div>
@@ -212,9 +212,9 @@ export default function Comment({ comment, onReplyCreated, onDelete, onSetReplyC
 
             {/* Crucial fix: min-w-0 on the main content flex item */}
             <div className="flex-1 min-w-0"> 
-                <div className={`p-2 mt-1 rounded-lg ${isHaivenAI ? 'bg-purple-500/10' : ''}`}>
+                <div className={`p-2 mt-1 rounded-lg ${isAssistantBot ? 'bg-purple-500/10' : ''}`}>
                     <div className="flex items-baseline gap-2">
-                        <p className={`font-semibold text-sm ${isHaivenAI ? 'text-purple-300' : 'main-text'}`}>{authorName}</p>
+                        <p className={`font-semibold text-sm ${isAssistantBot ? 'text-purple-300' : 'main-text'}`}>{authorName}</p>
                         <p className="text-xs tertiary-text">{formatDate(createdAt)}</p>
                     </div>
                         {/* Added wordBreak: 'break-word' */}

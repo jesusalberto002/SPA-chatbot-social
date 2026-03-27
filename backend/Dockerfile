@@ -1,6 +1,6 @@
-# Haivens API — Node + Express + Prisma (production)
+# Demo API — Node + Express + Prisma (production)
 # Build with context = this directory (backend/):
-#   cd backend && docker build -t haivens-backend:latest .
+#   cd backend && docker build -t demo-backend:latest .
 
 FROM node:22-bookworm-slim
 

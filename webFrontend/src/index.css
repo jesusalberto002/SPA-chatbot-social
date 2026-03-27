@@ -40,10 +40,10 @@ body {
 @keyframes pulse-glow {
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
   }
   50% {
-    box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.65);
   }
 }
 
@@ -125,15 +125,13 @@ body {
   background: linear-gradient(
     90deg,
     var(--brand-purple),
-    #c4b5fd,
+    #818cf8,
     var(--brand-blue),
-    #93c5fd,
+    #38bdf8,
     var(--brand-teal),
-    #a7f3d0,
-    var(--brand-amber),
-    #fde047,
-    #f97316,
-    #fdba74,
+    #22d3ee,
+    #3b82f6,
+    #6366f1,
     var(--brand-purple)
   );
   background-size: 800% 800%;
@@ -220,7 +218,7 @@ body {
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 30px var(--brand-purple);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.45);
 }
 
 .hover-scale {

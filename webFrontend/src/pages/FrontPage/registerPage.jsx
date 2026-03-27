@@ -41,17 +41,6 @@ const tagsList = [
   "MEDITATION",
 ]
 
-const avatarOptions = [
-  { id: 1, url: "/diverse-group-avatars.png" },
-  { id: 2, url: "/diverse-group-avatars.png" },
-  { id: 3, url: "/diverse-group-avatars.png" },
-  { id: 4, url: "/diverse-group-avatars.png" },
-  { id: 5, url: "/diverse-group-avatars.png" },
-  { id: 6, url: "/diverse-group-avatars.png" },
-  { id: 7, url: "/diverse-group-avatars.png" },
-  { id: 8, url: "/diverse-group-avatars.png" },
-]
-
 // Initialize Stripe outside of the component to avoid re-creation
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -122,7 +111,7 @@ const PaymentForm = ({ onSuccess, clientSecret }) => {
         navigate('/payment-success'); // Redirect to success page
       } catch (err) {
         // Fallback for when payment works but your API fails
-        setErrorMessage("Confirmation successful, but account setup failed. Please contact HAIVENS support.");
+        setErrorMessage("Confirmation successful, but account setup failed. Please contact support.");
         setIsProcessing(false);
       }
     }
@@ -173,8 +162,6 @@ const PaymentForm = ({ onSuccess, clientSecret }) => {
 };
 
 const StepSidebar = ({ currentStep }) => {
-  const HaivensIcon = "/haivens-logo.jpg"
-
   return (
     <div
       className="hidden lg:flex flex-col flex-shrink-0 w-80 p-8 h-screen sticky top-0 relative overflow-hidden"
@@ -189,7 +176,7 @@ const StepSidebar = ({ currentStep }) => {
 
       {/* Header */}
       <div className="flex items-center mb-16 relative z-10">
-        <img src="/white_logo_transparent.png" alt="Haivens Logo" width={150} height={50} className="flex-shrink-0" />
+        <img src="/logo-on-dark-bg.svg" alt="App logo" width={150} height={50} className="flex-shrink-0" />
       </div>
 
       {/* Steps */}
@@ -282,7 +269,7 @@ const StepSidebar = ({ currentStep }) => {
           <Shield className="w-3 h-3" />
           Secure registration process
         </p>
-        <p className="mt-2">&copy; 2025 HAIVENS. All rights reserved.</p>
+        <p className="mt-2">&copy; {new Date().getFullYear()} Demo. All rights reserved.</p>
       </div>
     </div>
   )

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120" aria-hidden="true">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="120" fill="url(#g3)" rx="12"/>
+  <path d="M200 35c-22 0-40 18-40 40 0 22 18 40 40 40s40-18 40-40-18-40-40-40z" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.4"/>
+  <text x="200" y="68" text-anchor="middle" fill="#eff6ff" font-family="system-ui,sans-serif" font-size="20" font-weight="600">Mental health</text>
+</svg>
