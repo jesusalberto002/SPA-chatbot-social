@@ -51,7 +51,7 @@ export default function TherapistsSelectionModal ({ onClose, children }) {
           {/* Header / Close Button */}
           <div className="flex justify-between items-center p-6 pb-0">
             <h2 className="text-2xl font-black tracking-tighter uppercase" style={{ color: "var(--text-primary)" }}>
-              Choose Your Therapist
+              Choose Your Assistant
             </h2>
             <button 
               onClick={onClose}

@@ -1,6 +1,6 @@
 "use client"
 
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { CheckCircle, XCircle, Info, AlertTriangle } from "lucide-react"
@@ -17,6 +17,7 @@ import PaymentSuccess from "./pages/FrontPage/paymentSuccess"
 import ProtectedRoute from "./services/protectedRoutes"
 import PublicRoute from "./services/publicRoutes"
 import AdminRoute from "./services/adminRoutes"
+import { PresentationPage } from "./features/presentation-card"
 
 function App() {
   const { theme } = useTheme()
@@ -39,7 +40,9 @@ function App() {
   return (
     <div className="main-container">
       <Routes>
-        <Route path="/" element={<FrontPage />} />
+        <Route path="/" element={<PresentationPage />} />
+        <Route path="/presentation" element={<Navigate to="/" replace />} />
+        <Route path="/app" element={<FrontPage />} />
         <Route path="/subscriptions" element={<SubscriptionPage />} />
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<LoginPage />} />
