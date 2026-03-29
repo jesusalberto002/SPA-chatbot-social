@@ -1075,3 +1075,177 @@
   color: var(--text-tertiary);
   text-align: center;
 }
+
+/* Education — degrees & certificates with logo slot */
+.presentation-card__education {
+  width: 100%;
+  scroll-margin-top: 1rem;
+  border-top: 1px solid var(--border-secondary);
+  background: linear-gradient(180deg, transparent, rgb(129 140 248 / 0.03));
+}
+
+.presentation-card__education .presentation-card__section-inner {
+  padding-top: clamp(2rem, 5vw, 3rem);
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.presentation-card__education-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+  width: 100%;
+}
+
+.presentation-card__education-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .presentation-card__education-row {
+    grid-template-columns: minmax(7rem, 9.5rem) 1fr;
+    gap: clamp(1.25rem, 3vw, 2rem);
+  }
+}
+
+.presentation-card__education-logo-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .presentation-card__education-logo-wrap {
+    justify-content: flex-start;
+  }
+}
+
+.presentation-card__education-logo-frame {
+  width: 100%;
+  max-width: 9.5rem;
+  aspect-ratio: 1;
+  border-radius: 0.85rem;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.presentation-card__education-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.5rem;
+}
+
+.presentation-card__education-logo-placeholder {
+  width: 100%;
+  max-width: 9.5rem;
+  aspect-ratio: 1;
+  border-radius: 0.85rem;
+  border: 2px dashed var(--border-primary);
+  background: linear-gradient(145deg, var(--bg-secondary), rgb(129 140 248 / 0.08));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.presentation-card__education-logo-initials {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--brand-purple);
+  line-height: 1.1;
+}
+
+.presentation-card__education-logo-hint {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.presentation-card__education-body {
+  min-width: 0;
+}
+
+.presentation-card__education-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.presentation-card__education-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  background: rgb(37 99 235 / 0.1);
+  border: 1px solid rgb(37 99 235 / 0.25);
+}
+
+.presentation-card__education-row--certificate .presentation-card__education-badge {
+  color: rgb(13 148 136);
+  background: rgb(13 148 136 / 0.12);
+  border-color: rgb(13 148 136 / 0.28);
+}
+
+.presentation-card__education-location {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.presentation-card__education-degree {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.presentation-card__education-institution {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.presentation-card__education-date {
+  margin: 0 0 0.85rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.presentation-card__education-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 44rem;
+}
+
+.presentation-card__education-row:hover .presentation-card__education-logo-frame,
+.presentation-card__education-row:hover .presentation-card__education-logo-placeholder {
+  border-color: rgb(129 140 248 / 0.45);
+  box-shadow: var(--shadow-sm);
+}

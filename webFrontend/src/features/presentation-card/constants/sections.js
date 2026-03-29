@@ -4,4 +4,5 @@ export const PRESENTATION_SECTION_IDS = {
   projects: 'presentation-projects',
   chat: 'presentation-chat',
   social: 'presentation-social',
+  education: 'presentation-education',
 };

@@ -59,22 +59,24 @@ export function ProjectRow({
             <Github size={18} strokeWidth={2} aria-hidden />
             GitHub
           </a>
-          {isInternalHref(appHref) ? (
-            <Link to={appHref} className={liveClassName}>
-              <ExternalLink size={18} strokeWidth={2} aria-hidden />
-              Live app
-            </Link>
-          ) : (
-            <a
-              href={appHref}
-              className={liveClassName}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ExternalLink size={18} strokeWidth={2} aria-hidden />
-              Live app
-            </a>
-          )}
+          {appHref ? (
+            isInternalHref(appHref) ? (
+              <Link to={appHref} className={liveClassName}>
+                <ExternalLink size={18} strokeWidth={2} aria-hidden />
+                Live app
+              </Link>
+            ) : (
+              <a
+                href={appHref}
+                className={liveClassName}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink size={18} strokeWidth={2} aria-hidden />
+                Live app
+              </a>
+            )
+          ) : null}
         </div>
       </div>
     </article>

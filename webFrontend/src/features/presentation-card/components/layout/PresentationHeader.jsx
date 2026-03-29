@@ -5,6 +5,7 @@ const NAV = [
   { id: PRESENTATION_SECTION_IDS.projects, label: "Projects" },
   { id: PRESENTATION_SECTION_IDS.chat, label: "Chat" },
   { id: PRESENTATION_SECTION_IDS.social, label: "Contact" },
+  { id: PRESENTATION_SECTION_IDS.education, label: "Education" },
 ];
 
 export function PresentationHeader() {

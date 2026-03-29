@@ -1,71 +1,9 @@
 const prisma = require('../../middleware/prisma');
 const { createClient } = require('@deepgram/sdk');
-const { VertexAI } = require('@google-cloud/vertexai');
 const { TextToSpeechClient } = require('@google-cloud/text-to-speech');
-const fs = require('fs');
-const path = require('path');
+const { getVertexAI, serviceAccount } = require('../../lib/googleVertex');
 
-const DEFAULT_GCP_PROJECT_ID = 'coral-hydra-471209-b4';
-
-const loadGoogleServiceAccount = () => {
-    const fromEnvJson = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
-    if (fromEnvJson) {
-        try {
-            const parsed = JSON.parse(fromEnvJson);
-            // Secrets Manager often stores \n escaped in private_key.
-            if (parsed.private_key) {
-                parsed.private_key = parsed.private_key.replace(/\\n/g, '\n');
-            }
-            return parsed;
-        } catch (error) {
-            console.error("FATAL ERROR: GOOGLE_APPLICATION_CREDENTIALS_JSON is not valid JSON.", error);
-            process.exit(1);
-        }
-    }
-
-    const credentialsPathEnv = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-    const candidatePaths = [];
-    if (credentialsPathEnv) {
-        candidatePaths.push(
-            path.isAbsolute(credentialsPathEnv)
-                ? credentialsPathEnv
-                : path.resolve(process.cwd(), credentialsPathEnv)
-        );
-    }
-
-    // Local development fallback.
-    candidatePaths.push(path.join(__dirname, '../../..', 'coral-hydra-471209-b4-d065fd90bf50.json'));
-
-    for (const filePath of candidatePaths) {
-        try {
-            if (fs.existsSync(filePath)) {
-                const keyFileContent = fs.readFileSync(filePath, 'utf8');
-                return JSON.parse(keyFileContent);
-            }
-        } catch (error) {
-            console.error(`FATAL ERROR: Could not read or parse Google service account file at ${filePath}.`, error);
-            process.exit(1);
-        }
-    }
-
-    console.error(
-        "FATAL ERROR: No Google credentials found. Set GOOGLE_APPLICATION_CREDENTIALS_JSON (recommended for ECS) or GOOGLE_APPLICATION_CREDENTIALS path."
-    );
-    process.exit(1);
-};
-
-const serviceAccount = loadGoogleServiceAccount();
-
-const vertex_ai = new VertexAI({
-    project: process.env.GOOGLE_CLOUD_PROJECT || serviceAccount.project_id || DEFAULT_GCP_PROJECT_ID,
-    location: "us-central1",
-    googleAuthOptions: {
-      credentials: {
-        client_email: serviceAccount.client_email,
-        private_key: serviceAccount.private_key,
-      },
-    },
-  });
+const vertex_ai = getVertexAI();
 
 const deepgram = createClient(process.env.DEEPGRAM_API_KEY);
 

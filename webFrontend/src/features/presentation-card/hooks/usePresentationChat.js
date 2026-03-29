@@ -1,4 +1,5 @@
 import { useCallback, useReducer, useRef } from 'react';
+import { postRagChat } from '../api/client';
 
 function uid() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
@@ -45,10 +46,7 @@ export function usePresentationChat() {
     dispatch({ type: 'USER_SEND', payload: userMsg });
 
     try {
-      // await api.post('portfolio-rag/chat', { message: text });
-      await new Promise((r) => setTimeout(r, 700));
-      const reply =
-        'This is a preview reply. Connect the portfolio RAG API to answer from your CV and project notes.';
+      const { reply } = await postRagChat(text);
       dispatch({
         type: 'ASSISTANT_REPLY',
         payload: { id: uid(), role: 'assistant', text: reply },
