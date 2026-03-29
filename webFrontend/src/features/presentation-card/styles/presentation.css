@@ -1089,6 +1089,10 @@
   padding-bottom: clamp(2.5rem, 6vw, 4rem);
 }
 
+.presentation-card__education .presentation-card__chat-title {
+  margin-bottom: 1.5rem;
+}
+
 .presentation-card__education-list {
   display: flex;
   flex-direction: column;
