@@ -57,6 +57,7 @@ const allowedOrigins = [
     ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map((s) => s.trim()) : []),
     'https://my-portfolio-22ixx5s52-jesusalberto002s-projects.vercel.app/',
     'https://spa-chatbot-social.vercel.app/',
+    'https://jesusojeda.dev/',
 ];
 
 const corsOptions = {
