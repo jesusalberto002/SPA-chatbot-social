@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Bot, Send, Sparkles, User } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { usePresentationChat } from '../../../hooks/usePresentationChat';
 import { PRESENTATION_SECTION_IDS } from '../../../constants/sections';
 
@@ -109,7 +110,13 @@ export function ChatSection() {
                       <span className="presentation-card__chat-bubble-label">
                         {m.role === 'user' ? 'You' : 'Assistant'}
                       </span>
-                      <p className="presentation-card__chat-bubble-text">{m.text}</p>
+                      {m.role === 'assistant' ? (
+                        <div className="presentation-card__chat-bubble-text presentation-card__chat-bubble-text--md">
+                          <ReactMarkdown>{m.text}</ReactMarkdown>
+                        </div>
+                      ) : (
+                        <p className="presentation-card__chat-bubble-text">{m.text}</p>
+                      )}
                     </div>
                   </li>
                 ))}
