@@ -49,8 +49,8 @@ export function ChatSection() {
           <div>
             <h2 className="presentation-card__chat-title">Ask about my background</h2>
             <p className="presentation-card__chat-lead">
-              A recruiter-style assistant — ask about experience, stack, and projects. Answers will use your
-              RAG pipeline once connected.
+              Ask about experience, stack, projects, and more. Answers will use a
+              RAG pipeline to find relevant information from my knowledge base.
             </p>
           </div>
         </div>
@@ -60,7 +60,7 @@ export function ChatSection() {
             <div className="presentation-card__chat-toolbar">
               <span className="presentation-card__chat-toolbar-badge">
                 <Bot size={16} aria-hidden />
-                Assistant
+                RAG-powered Assistant
               </span>
               <span className="presentation-card__chat-toolbar-hint">Preview mode</span>
             </div>

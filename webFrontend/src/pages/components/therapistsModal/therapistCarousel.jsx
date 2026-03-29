@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import TherapistCard from './TherapistCard'; // We will build this next
+import TherapistCard from './therapistCard';
 import { cn } from "@/lib/utils";
 import { useTherapist } from "@/context/therapistContext";
 
