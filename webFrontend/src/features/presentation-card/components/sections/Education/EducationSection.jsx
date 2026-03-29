@@ -11,13 +11,14 @@ export function EducationSection() {
     >
       <div className="presentation-card__section-inner">
         <h2 className="presentation-card__chat-title">Education</h2>
-        <p className="presentation-card__section-lead">
-          Degrees and professional training—each card includes space for the institution’s logo and a short note on the
-          program and how it shaped my formation.
-        </p>
         <div className="presentation-card__education-list">
-          {EDUCATION_ENTRIES.map((entry) => (
-            <EducationRow key={entry.id} {...entry} />
+          {EDUCATION_ENTRIES.map((entry, index) => (
+            <div key={entry.id}>
+              {index > 0 && (
+                <hr className="presentation-card__education-divider" />
+              )}
+              <EducationRow {...entry} />
+            </div>
           ))}
         </div>
       </div>

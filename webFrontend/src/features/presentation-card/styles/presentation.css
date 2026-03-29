@@ -1096,6 +1096,13 @@
   width: 100%;
 }
 
+.presentation-card__education-divider {
+  border: none;
+  border-top: 1px solid currentColor;
+  opacity: 0.08;
+  margin: 0;
+}
+
 .presentation-card__education-row {
   display: grid;
   grid-template-columns: 1fr;
