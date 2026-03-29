@@ -55,6 +55,8 @@ const allowedOrigins = [
     'http://127.0.0.1:5173',
     'https://d2lncv8bc1ga81.cloudfront.net',
     ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map((s) => s.trim()) : []),
+    'https://my-portfolio-22ixx5s52-jesusalberto002s-projects.vercel.app/',
+    'https://spa-chatbot-social.vercel.app/',
 ];
 
 const corsOptions = {
