@@ -34,7 +34,7 @@ export const SOCIAL_LINKS = [
     title: 'Phone',
     description: 'Available for a call or message.',
     href: 'tel:+61 424 760 920',
-    displayValue: '+61 424 760 920',
+    displayValue: '+61 424 760 977',
     actionLabel: 'Call',
   },
 ];
