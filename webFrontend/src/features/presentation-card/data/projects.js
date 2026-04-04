@@ -12,8 +12,8 @@ export const PROJECTS = [
     id: 'spa-chatbot-social',
     title: 'SPA AI Chatbot with RAG + Full Social Media',
     description:
-      'A full-stack wellness platform with real-time chat, AI-assisted conversations, communities, and subscriptions. Built as a single product in this monorepo with a focus on accessible UX and a maintainable API layer.',
-    stack: ['React', 'Vite', 'Node.js', 'Express', 'PostgreSQL', 'Prisma', 'Stripe'],
+      'A cloud-native platform with real-time AI chat and Terraform-managed infrastructure, AI-assisted conversations, communities, and subscriptions. Built as a single product in this monorepo with a focus on accessible UX and a maintainable API layer.',
+    stack: ['AWS', 'Node.js', 'Terraform', 'PostgreSQL', 'Agentic AI', 'Stripe'],
     image: appScreenshot,
     imageAlt: 'SPA Chatbot Social web application interface',
     repoHref: 'https://github.com/jesusalberto002/SPA-chatbot-social.git',

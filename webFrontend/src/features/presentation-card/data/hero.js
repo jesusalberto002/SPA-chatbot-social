@@ -4,6 +4,6 @@ export const HERO = {
   eyebrow: 'Hello — I\'m',
   tagline: 'Software engineer · Cloud & Systems · LLM/ML Enthusiast',
   bio:
-    'I design and ship full-stack web experiences, from resilient APIs and data layers to polished UIs. I care about clear architecture, observable systems, and using AI thoughtfully where it helps real users.',
-  highlights: ['Full-stack', 'Cloud / Infra', 'Agentic AI', 'RAG', 'LLM/ML'],
+    "Backend Engineer focused on Cloud-native systems and Agentic AI. I design resilient APIs and manage scalable infrastructure through Infrastructure as Code (IaC). I'm passionate about building complex systems that are deeply integrated into the cloud, ensuring every implementation is backed by a robust, observable architecture.",
+  highlights: ['Backend', 'Cloud / Infra', 'Agentic AI', 'RAG', 'LLM/ML', 'IaC'],
 };
